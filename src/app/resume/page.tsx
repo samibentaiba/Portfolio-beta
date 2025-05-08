@@ -17,7 +17,6 @@ import { useEffect, useState } from "react";
 import type { ReactElement } from "react";
 import { Experience, Project, SkillCategory } from "@/types";
 
-
 interface Props {
   t: (key: string) => string;
   experiences: Experience[];
@@ -29,10 +28,8 @@ interface Props {
 }
 
 export default function ResumePage() {
-  // Fetch resume data using the custom hook
   const resume = useResume();
 
-  // Extract individual fields from the resume data
   const {
     t,
     experiences,
@@ -44,7 +41,6 @@ export default function ResumePage() {
   } = resume;
 
   return (
-    // Render ResumeContent and pass the required props
     <ResumeContent
       t={t}
       experiences={experiences}
@@ -67,11 +63,12 @@ function ResumeContent({
   handlePdfDownload,
 }: Props) {
   const [resumeSections, setResumeSections] = useState<ReactElement[]>([]);
+  const [pageHeight, setPageHeight] = useState(550);
 
   useEffect(() => {
     const sections: ReactElement[] = [];
 
-    // Header
+    // Create sections based on the provided resume data
     sections.push(
       <div key="header" className="space-y-2">
         <h1 className="text-3xl font-bold">John Doe</h1>
@@ -81,7 +78,6 @@ function ResumeContent({
       </div>
     );
 
-    // Summary
     sections.push(
       <div key="summary" className="flex flex-col space-y-2">
         <h2 className="text-xl font-semibold">
@@ -91,7 +87,6 @@ function ResumeContent({
       </div>
     );
 
-    // Experiences
     experiences.forEach((exp, i) => {
       sections.push(
         <ResumeSection
@@ -115,8 +110,7 @@ function ResumeContent({
       );
     });
 
-    // Projects
-    const projectChunkSize = 1; // Adjust as needed
+    const projectChunkSize = 1;
     const projectChunks = [];
 
     for (let i = 0; i < projects.length; i += projectChunkSize) {
@@ -152,9 +146,8 @@ function ResumeContent({
       );
     });
 
-    // Skills
     skills.forEach((group, i) => {
-      const chunkSize = 5; // or use dynamic measuring if desired
+      const chunkSize = 5;
       const skillChunks = [];
 
       for (let j = 0; j < group.items.length; j += chunkSize) {
@@ -192,7 +185,6 @@ function ResumeContent({
       });
     });
 
-    // Education
     sections.push(
       <div key="education" className="space-y-2">
         <h2 className="text-xl font-semibold">
@@ -210,6 +202,19 @@ function ResumeContent({
     setResumeSections(sections);
   }, [t, experiences, projects, skills]);
 
+  useEffect(() => {
+    // Update page height based on the size of rendered chunks
+    const updateHeight = () => {
+      const containerHeight =
+        document.querySelector(".space-y-6")?.scrollHeight || 0;
+      setPageHeight(Math.max(containerHeight, 400)); // Set a minimum height of 400px
+    };
+
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, [resumeSections]);
+
   const {
     containerRef,
     measureRef,
@@ -221,12 +226,13 @@ function ResumeContent({
     setCurrentPage,
   } = useResumePagination({
     content: resumeSections,
-    pageHeight: 550,
+    pageHeight,
   });
 
   useEffect(() => {
     setCurrentPage(1);
   }, [resumeSections, setCurrentPage]);
+
   return (
     <main className="container py-8 sm:py-12 px-4 sm:px-6 flex justify-center items-center min-h-screen">
       <div className="max-w-2xl w-full flex flex-col gap-6 mx-auto">
@@ -242,7 +248,7 @@ function ResumeContent({
         <Card className="p-8 flex flex-col shadow-lg">
           <div
             ref={containerRef}
-            className="space-y-6 min-h-[650px] max-h-[650px] overflow-hidden"
+            className="space-y-6 min-h-[650px] overflow-hidden"
           >
             {currentPageContent.map((section, index) => (
               <div key={index}>{section}</div>
@@ -261,28 +267,33 @@ function ResumeContent({
           </div>
 
           {/* Pagination controls */}
-          <div className="flex items-center justify-between pt-4 mt-4 ">
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={goToPrevPage}
-                disabled={currentPage === 1}
-              >
-                <ChevronLeft className="h-4 w-4 mr-1" />
-                {t("navigation.previous")}
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={goToNextPage}
-                disabled={currentPage === totalPages}
-              >
-                {t("navigation.next")}
-                <ChevronRight className="h-4 w-4 ml-1" />
-              </Button>
+          <div className="flex items-center flex-col justify-between ">
+            <div className="flex items-center w-full md:justify-between justify-center pt-4 mt-4 ">
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={goToPrevPage}
+                  disabled={currentPage === 1}
+                >
+                  <ChevronLeft className="h-4 w-4 mr-1" />
+                  {t("navigation.previous")}
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={goToNextPage}
+                  disabled={currentPage === totalPages}
+                >
+                  {t("navigation.next")}
+                  <ChevronRight className="h-4 w-4 ml-1" />
+                </Button>
+              </div>
+              <span className="text-sm hidden md:flex lg:flex text-muted-foreground">
+                Page {currentPage} {t("navigation.of")} {totalPages}
+              </span>
             </div>
-            <span className="text-sm text-muted-foreground">
+            <span className="text-sm md:hidden lg:hidden text-muted-foreground">
               Page {currentPage} {t("navigation.of")} {totalPages}
             </span>
           </div>
