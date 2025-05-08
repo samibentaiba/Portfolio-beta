@@ -1,0 +1,98 @@
+[
+  {
+    "category": "Développement Frontend",
+    "slug": "frontend-development",
+    "description": "Création d'interfaces utilisateur réactives et accessibles",
+    "longDescription": "Le développement frontend se concentre sur la création des éléments visuels et interactifs des sites web et des applications avec lesquels les utilisateurs interagissent directement. Ces compétences me permettent de créer des interfaces utilisateur intuitives, réactives et accessibles qui offrent d'excellentes expériences utilisateur sur tous les appareils.\n\nAvec de solides compétences frontend, je peux transformer des designs en interfaces fonctionnelles, implémenter des interactions complexes, optimiser les performances et garantir le respect des normes d'accessibilité. Le développement frontend moderne nécessite une combinaison de sensibilité au design, de connaissances techniques et d'une compréhension des principes d'expérience utilisateur.",
+    "items": [
+      {
+        "name": "React",
+        "slug": "react",
+        "experience": "3 ans",
+        "description": "React est une bibliothèque JavaScript pour la création d'interfaces utilisateur. J'ai utilisé React de manière extensive pour créer des applications à page unique, en me concentrant sur l'architecture basée sur les composants et la gestion d'état avec les hooks et l'API de contexte."
+      },
+      {
+        "name": "Next.js",
+        "slug": "nextjs",
+        "experience": "2 ans",
+        "description": "Next.js est un framework React qui permet le rendu côté serveur et la génération de sites statiques. J'ai utilisé Next.js pour créer des applications web performantes et optimisées pour le référencement, en tirant parti de son système de routage basé sur les fichiers et de ses routes API."
+      },
+      {
+        "name": "TypeScript",
+        "slug": "typescript",
+        "experience": "2 ans",
+        "description": "TypeScript est un langage de programmation fortement typé qui s'appuie sur JavaScript. J'utilise TypeScript dans tous mes projets pour assurer la sécurité des types et améliorer l'expérience des développeurs avec de meilleurs outils et une meilleure documentation."
+      },
+      {
+        "name": "Tailwind CSS",
+        "slug": "tailwind",
+        "experience": "2 ans",
+        "description": "Tailwind CSS est un framework CSS utilitaire. J'utilise Tailwind CSS pour créer rapidement des designs personnalisés sans quitter le HTML, en me concentrant sur la conception responsive et la cohérence des composants."
+      }
+    ]
+  },
+  {
+    "category": "Développement Backend",
+    "slug": "backend-development",
+    "description": "Création d'applications côté serveur évolutives et sécurisées",
+    "longDescription": "Le développement backend implique la création de la logique côté serveur qui alimente les applications web. Ces compétences me permettent de créer des API robustes, de gérer des bases de données, de gérer l'authentification et de traiter les données efficacement.\n\nDes compétences backend solides sont essentielles pour créer des applications qui peuvent évoluer pour gérer de nombreux utilisateurs, maintenir l'intégrité des données et fournir un accès sécurisé aux ressources. Le développement backend nécessite une connaissance technique approfondie des architectures de serveurs, de la conception de bases de données et des meilleures pratiques de sécurité.",
+    "items": [
+      {
+        "name": "Node.js",
+        "slug": "nodejs",
+        "experience": "3 ans",
+        "description": "Node.js est un environnement d'exécution JavaScript construit sur le moteur JavaScript V8 de Chrome. J'ai utilisé Node.js pour créer des API RESTful, des microservices et des applications côté serveur, en me concentrant sur les performances et l'évolutivité."
+      },
+      {
+        "name": "Express",
+        "slug": "express",
+        "experience": "3 ans",
+        "description": "Express est un framework d'application web Node.js minimal et flexible. J'ai utilisé Express pour créer des API RESTful et des serveurs web, en mettant l'accent sur l'architecture middleware et le routage."
+      },
+      {
+        "name": "PostgreSQL",
+        "slug": "postgresql",
+        "experience": "2 ans",
+        "description": "PostgreSQL est une base de données relationnelle avancée et open-source. J'ai utilisé PostgreSQL pour le stockage de données dans diverses applications, en tirant parti de ses fonctionnalités robustes pour les requêtes complexes et l'intégrité des données."
+      },
+      {
+        "name": "Prisma",
+        "slug": "prisma",
+        "experience": "1 an",
+        "description": "Prisma est un ORM de nouvelle génération pour Node.js et TypeScript. J'utilise Prisma pour interagir avec les bases de données, en profitant de sa sécurité de type et de son API intuitive pour les opérations de base de données."
+      }
+    ]
+  },
+  {
+    "category": "DevOps & Outils",
+    "slug": "devops-and-tools",
+    "description": "Rationalisation des processus de développement et de déploiement",
+    "longDescription": "Les pratiques et outils DevOps comblent le fossé entre le développement et les opérations, permettant une livraison de logiciels plus rapide et plus fiable. Ces compétences me permettent d'automatiser les flux de travail, de gérer l'infrastructure et d'assurer des processus de déploiement cohérents.\n\nEn mettant en œuvre des pratiques DevOps, je peux réduire le temps entre l'écriture du code et son déploiement en production, tout en maintenant une qualité et une fiabilité élevées. Ce domaine nécessite une connaissance de la conteneurisation, des pipelines CI/CD, de l'infrastructure en tant que code et des systèmes de surveillance.",
+    "items": [
+      {
+        "name": "Git",
+        "slug": "git",
+        "experience": "4 ans",
+        "description": "Git est un système de contrôle de version distribué. J'utilise Git quotidiennement pour le contrôle de version, la collaboration et la gestion des changements de code à travers les projets."
+      },
+      {
+        "name": "Docker",
+        "slug": "docker",
+        "experience": "2 ans",
+        "description": "Docker est une plateforme pour développer, expédier et exécuter des applications dans des conteneurs. J'utilise Docker pour créer des environnements de développement cohérents et simplifier les processus de déploiement."
+      },
+      {
+        "name": "GitHub Actions",
+        "slug": "github-actions",
+        "experience": "1 an",
+        "description": "GitHub Actions est une plateforme CI/CD intégrée à GitHub. J'utilise GitHub Actions pour automatiser les flux de travail de test, de construction et de déploiement pour mes projets."
+      },
+      {
+        "name": "Vercel",
+        "slug": "vercel",
+        "experience": "2 ans",
+        "description": "Vercel est une plateforme de déploiement et de collaboration pour les développeurs frontend. J'utilise Vercel pour déployer et héberger des applications web, en tirant parti de ses fonctions serverless et de son réseau edge."
+      }
+    ]
+  }
+]

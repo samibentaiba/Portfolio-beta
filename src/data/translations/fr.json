@@ -1,0 +1,123 @@
+{
+  "navigation": {
+    "skills": "Compétences",
+    "experiences": "Expériences",
+    "projects": "Projets",
+    "contact": "me contacter",
+    "backToHome": "Retour à l'Accueil",
+    "next": "Suivante",
+    "previous": "Précédente",
+    "of": "sur",
+    "title": "Titre",
+    "experience": "Expérience",
+    "live": "En ligne"
+  },
+  "hero": {
+    "title": "Sami Bentaiba",
+    "subtitle": "Développeur logiciel",
+    "viewProjects": "Voir les Projets",
+    "contactMe": "Me Contacter",
+    "resume": "CV"
+  },
+  "skills": {
+    "title": "Compétences",
+    "subtitle": "Technologies et outils avec lesquels je travaille",
+    "learnMore": "En savoir plus sur",
+    "backToSkills": "Retour aux Compétences",
+    "viewCategory": "Voir la Catégorie",
+    "description": "Description",
+    "projectsUsing": "Projets Utilisant Cette Compétence",
+    "projectsApplied": "Projets où j'ai appliqué",
+    "clickToView": "Cliquez pour voir les détails"
+  },
+  "experiences": {
+    "title": "Expériences",
+    "subtitle": "Mon parcours professionnel et mes rôles",
+    "backToExperiences": "Retour aux Expériences",
+    "roleDescription": "Description du Rôle",
+    "skillsUsed": "Compétences Utilisées",
+    "skillsApplied": "Compétences techniques et personnelles appliquées dans ce rôle",
+    "projects": "Projets",
+    "keyProjects": "Projets clés réalisés pendant cette période"
+  },
+  "projects": {
+    "title": "Projets",
+    "subtitle": "Présentation de mon travail et de mes contributions",
+    "backToProjects": "Retour aux Projets",
+    "viewLive": "Voir le Site en Direct",
+    "viewCode": "Voir le Code",
+    "description": "Description",
+    "projectDetails": "Détails du Projet",
+    "timeline": "Chronologie",
+    "collaborators": "Collaborateurs",
+    "soloProject": "Projet solo",
+    "personalExperience": "Expérience Personnelle"
+  },
+  "resume": {
+    "download": "Télécharger PDF",
+    "downloadDocx": "Télécharger en .docx",
+    "print": "Imprimer",
+    "generating": "Génération en cours...",
+    "summary": "Résumé",
+    "at": "à",
+    "education": "Formation"
+  },
+  "categories": {
+    "overview": "Aperçu",
+    "skillsInCategory": "Compétences dans cette catégorie"
+  },
+  "contact": {
+    "title": "Me Contacter",
+    "subtitle": "Vous avez un projet en tête ? Travaillons ensemble pour donner vie à vos idées.",
+    "form": {
+      "title": "Envoyez-moi un Message",
+      "description": "Remplissez le formulaire ci-dessous et je vous répondrai dès que possible.",
+      "firstName": "Prénom",
+      "firstNamePlaceholder": "Entrez votre prénom",
+      "lastName": "Nom",
+      "lastNamePlaceholder": "Entrez votre nom",
+      "email": "Email",
+      "emailPlaceholder": "Entrez votre email",
+      "phone": "Numéro de Téléphone",
+      "phonePlaceholder": "Entrez votre numéro de téléphone",
+      "projectName": "Nom du Projet",
+      "projectNamePlaceholder": "Entrez le nom de votre projet",
+      "message": "Message",
+      "messagePlaceholder": "Parlez-moi de votre projet...",
+      "messageDescription": "Veuillez fournir des détails sur votre projet et vos besoins.",
+      "submit": "Envoyer le Message",
+      "sending": "Envoi en cours..."
+    },
+    "validation": {
+      "firstNameRequired": "Le prénom est requis",
+      "lastNameRequired": "Le nom est requis",
+      "emailValid": "Veuillez entrer une adresse email valide",
+      "phoneRequired": "Le numéro de téléphone est requis",
+      "projectRequired": "Le nom du projet est requis",
+      "messageLength": "Le message doit comporter au moins 10 caractères"
+    },
+    "success": {
+      "title": "Message envoyé !",
+      "description": "Merci pour votre message. Je vous répondrai bientôt."
+    },
+    "error": {
+      "title": "Une erreur s'est produite",
+      "description": "Votre message n'a pas pu être envoyé. Veuillez réessayer plus tard."
+    },
+    "info": {
+      "title": "Informations de Contact",
+      "description": "N'hésitez pas à me contacter par l'un de ces canaux.",
+      "email": "Email",
+      "phone": "Téléphone",
+      "location": "Localisation",
+      "hours": "Heures de Travail"
+    },
+    "response": {
+      "title": "Temps de Réponse",
+      "description": "Je réponds généralement aux demandes dans un délai de 24 à 48 heures pendant les jours ouvrables. Pour les questions urgentes, veuillez l'indiquer dans votre message."
+    }
+  },
+  "footer": {
+    "rights": "Tous droits réservés."
+  }
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "category": "Humour de Codage",
+    "text": "Pourquoi les programmeurs préfèrent-ils le mode sombre ? Parce que la lumière attire les bugs !"
+  },
+  {
+    "category": "Histoire Tech",
+    "text": "Le premier virus informatique a été créé en 1983 et s'appelait 'Elk Cloner'."
+  },
+  {
+    "category": "Fait de Programmation",
+    "text": "La première programmeuse de l'histoire était une femme nommée Ada Lovelace, qui a écrit le premier algorithme pour le Moteur Analytique de Charles Babbage dans les années 1840."
+  },
+  {
+    "category": "Anecdote Web",
+    "text": "Le premier site web jamais créé est toujours en ligne ! Vous pouvez le visiter à info.cern.ch."
+  },
+  {
+    "category": "Humour de Codage",
+    "text": "Une requête SQL entre dans un bar, s'approche de deux tables et demande : 'Puis-je vous joindre ?'"
+  },
+  {
+    "category": "Histoire Tech",
+    "text": "Le terme 'bug' pour décrire un problème informatique est apparu en 1947 lorsque Grace Hopper a trouvé un papillon causant des problèmes dans l'ordinateur Harvard Mark II."
+  },
+  {
+    "category": "Fait de Programmation",
+    "text": "JavaScript a été créé en seulement 10 jours par Brendan Eich en 1995."
+  },
+  {
+    "category": "Anecdote Web",
+    "text": "La taille moyenne d'une page web en 1995 était de 14 Ko. Aujourd'hui, elle dépasse 2 Mo !"
+  },
+  {
+    "category": "Humour de Codage",
+    "text": "Pourquoi les développeurs Java portent-ils des lunettes ? Parce qu'ils ne voient pas C# !"
+  },
+  {
+    "category": "Histoire Tech",
+    "text": "La première souris d'ordinateur était faite en bois et a été inventée par Doug Engelbart en 1964."
+  },
+  {
+    "category": "Fait de Programmation",
+    "text": "Il existe environ 700 langages de programmation en usage aujourd'hui."
+  },
+  {
+    "category": "Anecdote Web",
+    "text": "Le nom de domaine le plus cher jamais vendu était Cars.com pour 872 millions de dollars."
+  },
+  {
+    "category": "Humour de Codage",
+    "text": "Il y a 10 types de personnes dans le monde : ceux qui comprennent le binaire et ceux qui ne le comprennent pas."
+  },
+  {
+    "category": "Histoire Tech",
+    "text": "Le premier tweet a été envoyé par Jack Dorsey le 21 mars 2006. Il disait 'just setting up my twttr'."
+  },
+  {
+    "category": "Fait de Programmation",
+    "text": "Le langage de programmation le plus populaire, JavaScript, a été développé à l'origine en seulement 10 jours."
+  }
+]

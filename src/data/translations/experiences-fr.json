@@ -1,0 +1,83 @@
+[
+  {
+    "role": "Développeur Frontend Senior",
+    "company": "Tech Innovations Inc.",
+    "slug": "senior-frontend-developer",
+    "type": "Temps plein",
+    "period": "Jan 2022 - Présent",
+    "location": "À distance",
+    "summary": "Direction du développement frontend pour une plateforme SaaS avec plus de 50 000 utilisateurs.",
+    "description": "En tant que Développeur Frontend Senior chez Tech Innovations, je dirige le développement de notre produit SaaS phare, en me concentrant sur la création d'interfaces utilisateur intuitives et l'optimisation des performances.\n\nJe collabore avec des designers, des chefs de produit et des développeurs backend pour implémenter de nouvelles fonctionnalités et améliorer celles existantes. J'ai introduit TypeScript et des modèles React modernes dans notre base de code, ce qui a entraîné une réduction de 40% des bugs frontend.\n\nJe conseille également les développeurs juniors et contribue aux décisions architecturales qui façonnent l'avenir de notre produit.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Next.js",
+      "Redux",
+      "Jest",
+      "Cypress",
+      "CI/CD",
+      "Leadership d'équipe",
+      "Revues de code",
+      "Mentorat"
+    ],
+    "projects": [
+      "Refonte de l'interface du tableau de bord, améliorant l'engagement des utilisateurs de 25%",
+      "Implémentation d'un nouveau système d'authentification avec support SSO",
+      "Création d'une bibliothèque de composants utilisée dans plusieurs produits",
+      "Optimisation des performances de l'application, réduisant le temps de chargement de 40%"
+    ]
+  },
+  {
+    "role": "Développeur Frontend",
+    "company": "WebSolutions Co.",
+    "slug": "frontend-developer",
+    "type": "Temps plein",
+    "period": "Mar 2020 - Déc 2021",
+    "location": "New York, NY",
+    "summary": "Développement d'applications web responsives pour des clients de divers secteurs.",
+    "description": "En tant que Développeur Frontend chez WebSolutions, j'étais responsable de la création d'applications web responsives et accessibles pour des clients des secteurs de la finance, de la santé et du commerce électronique.\n\nJ'ai travaillé dans une équipe agile de 6 développeurs, participant à la planification des sprints, aux stand-ups quotidiens et aux rétrospectives. J'ai implémenté des designs pixel-perfect en utilisant React et styled-components, assurant la compatibilité cross-browser et des mises en page responsives.\n\nJ'ai également collaboré avec des développeurs backend pour intégrer des API RESTful et optimiser les stratégies de récupération de données.",
+    "skills": [
+      "React",
+      "JavaScript",
+      "CSS/SCSS",
+      "HTML5",
+      "API REST",
+      "Git",
+      "Méthodologie Agile",
+      "Tests cross-browser",
+      "Design responsive"
+    ],
+    "projects": [
+      "Construction d'une plateforme e-commerce pour un détaillant de mode",
+      "Développement d'un portail patient pour un prestataire de soins de santé",
+      "Création d'un tableau de bord interactif pour une société de services financiers",
+      "Implémentation d'un système de réservation pour un client de l'hôtellerie"
+    ]
+  },
+  {
+    "role": "Stagiaire en Développement Web",
+    "company": "Digital Creatives",
+    "slug": "web-development-intern",
+    "type": "Stage",
+    "period": "Juin 2019 - Fév 2020",
+    "location": "Boston, MA",
+    "summary": "Assistance au développement de sites web et d'applications web pour petites entreprises.",
+    "description": "En tant que Stagiaire en Développement Web chez Digital Creatives, j'ai assisté l'équipe de développement dans la création de sites web et d'applications web pour petites entreprises et startups.\n\nJ'étais responsable de l'implémentation de mises en page responsives en utilisant HTML, CSS et JavaScript, et de la maintenance des sites web clients existants. J'ai également participé à des réunions avec les clients pour comprendre les exigences et présenter les mises à jour de progression.\n\nCe stage m'a fourni une expérience précieuse dans un environnement de développement professionnel et a amélioré mes compétences techniques et de communication.",
+    "skills": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "WordPress",
+      "Design responsive",
+      "Communication client",
+      "Gestion du temps",
+      "Résolution de problèmes"
+    ],
+    "projects": [
+      "Développement d'un site web portfolio pour un photographe local",
+      "Création d'un site WordPress pour un restaurant avec des capacités de commande en ligne",
+      "Assistance à la création d'une page d'atterrissage pour une startup d'applications mobiles",
+      "Maintenance et mise à jour du contenu pour plusieurs sites web clients"
+    ]
+  }
+]
