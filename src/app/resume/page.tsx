@@ -246,9 +246,10 @@ function ResumeContent({
           </Link>
         </div>
         <Card className="p-8 flex flex-col shadow-lg">
+          
           <div
             ref={containerRef}
-            className="space-y-6 min-h-[650px] overflow-hidden"
+            className="space-y-6 max-h-[750px] min-h-[600px]  overflow-hidden"
           >
             {currentPageContent.map((section, index) => (
               <div key={index}>{section}</div>

@@ -19,44 +19,43 @@ export function useResumePagination({ content, pageHeight }: UsePaginationProps)
     const children = Array.from(measureRef.current.children);
     const pagesArray: ReactElement[][] = [];
     let currentPageContent: ReactElement[] = [];
-    let currentHeight = 0;
+
+    let pageTop = 0;
+    let pageBottom = pageHeight;
 
     children.forEach((child, index) => {
-      const childHeight = (child as HTMLElement).offsetHeight;
-      const element = content[index];
+      const rect = (child as HTMLElement).getBoundingClientRect();
+      const elementTop = rect.top;
+      const elementHeight = rect.height;
 
-      // Check if the next content will overflow the current page
-      if (currentHeight + childHeight > pageHeight) {
-        // Add the current page content to the page array
+      const relativeTop = elementTop - (measureRef.current as HTMLDivElement).getBoundingClientRect().top;
+
+      if (relativeTop + elementHeight > pageBottom) {
+        // Content overflows the page
         pagesArray.push(currentPageContent);
-        currentPageContent = [element];
-        currentHeight = childHeight;
+        currentPageContent = [content[index]];
+        pageTop = relativeTop;
+        pageBottom = pageTop + pageHeight;
       } else {
-        currentPageContent.push(element);
-        currentHeight += childHeight;
+        currentPageContent.push(content[index]);
       }
     });
 
-    // Push the last set of content to the pages
     if (currentPageContent.length > 0) {
       pagesArray.push(currentPageContent);
     }
 
     setPages(pagesArray);
     setTotalPages(pagesArray.length);
-    setCurrentPage(1); // Always start from page 1 when content is updated
+    setCurrentPage(1);
   }, [content, pageHeight]);
 
   const goToNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage((prev) => prev + 1);
-    }
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
 
   const goToPrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prev) => prev - 1);
-    }
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
 
   return {
