@@ -21,7 +21,7 @@ export default function Hero() {
               {t("hero.subtitle")}
             </p>
           </div>
-          <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
+          <div className="flex justify-center gap-3 sm:gap-4">
             <Button
               onClick={() => {
                 scrollToSection("projects");
