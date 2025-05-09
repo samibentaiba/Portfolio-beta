@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import {  useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useScroll } from "@/hooks/use-scroll";
@@ -33,7 +33,6 @@ export const MenuDrop: React.FC<MenuDropProps> = ({
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Node;
 
       if (
         mobileMenuOpen &&

@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { LanguageToggle } from "@/components/language-toggle";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/components/language-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
