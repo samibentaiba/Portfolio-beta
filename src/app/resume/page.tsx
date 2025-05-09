@@ -1,6 +1,6 @@
 "use client";
 
-import { useResume } from "./use-resume"; // Hook to fetch resume data
+import { useResume } from "./use-resume";
 import { useResumePagination } from "./use-resume-pagination";
 import { ResumeSection } from "./resume-section";
 import { Button } from "@/components/ui/button";
@@ -15,7 +15,13 @@ import { FileText } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { ReactElement } from "react";
-import { Experience, Project, SkillCategory } from "@/types";
+import {
+  Education,
+  Experience,
+  Personal,
+  Project,
+  SkillCategory,
+} from "@/types";
 import { LuGithub } from "react-icons/lu";
 
 interface Props {
@@ -24,8 +30,10 @@ interface Props {
   projects: Project[];
   skills: SkillCategory[];
   isGenerating: boolean;
+  personal: Personal | null;
+  educations: Education[];
   handleDownload: () => void;
-  handlePdfDownload: () => void;
+  handleDownloadPdf: () => void;
 }
 
 export default function ResumePage() {
@@ -37,8 +45,10 @@ export default function ResumePage() {
     projects,
     skills,
     isGenerating,
+    personal,
+    educations,
     handleDownload,
-    handlePdfDownload,
+    handleDownloadPdf,
   } = resume;
 
   return (
@@ -47,9 +57,11 @@ export default function ResumePage() {
       experiences={experiences}
       projects={projects}
       skills={skills}
+      personal={personal}
+      educations={educations}
       isGenerating={isGenerating}
       handleDownload={handleDownload}
-      handlePdfDownload={handlePdfDownload}
+      handleDownloadPdf={handleDownloadPdf}
     />
   );
 }
@@ -60,8 +72,10 @@ function ResumeContent({
   projects,
   skills,
   isGenerating,
+  personal,
+  educations,
   handleDownload,
-  handlePdfDownload,
+  handleDownloadPdf,
 }: Props) {
   const [resumeSections, setResumeSections] = useState<ReactElement[]>([]);
   const [pageHeight, setPageHeight] = useState(550);
@@ -69,169 +83,176 @@ function ResumeContent({
   useEffect(() => {
     const sections: ReactElement[] = [];
 
-    // Create sections based on the provided resume data
-    sections.push(
-      <div key="header" className="space-y-2">
-        <h1 className="text-3xl font-bold">John Doe</h1>
-        <p className="text-muted-foreground">
-          {t("hero.title")} · johndoe@example.com
-        </p>
-      </div>
-    );
-
-    sections.push(
-      <div key="summary" className="flex flex-col space-y-2">
-        <h2 className="text-xl font-semibold">
-          {t("resume.summary") || "Summary"}:
-        </h2>
-        <p className="text-sm text-muted-foreground">{t("hero.subtitle")}</p>
-      </div>
-    );
-
-    experiences.forEach((exp, i) => {
+    if (personal) {
       sections.push(
-        <ResumeSection
-          key={`exp-${i}`}
-          title={i === 0 ? t("experiences.title") || "Experience" : undefined}
-        >
-          <div className="space-y-1">
-            <p className="font-medium">
-              {exp.role} - {exp.company}
-            </p>
-            <p className="text-xs text-muted-foreground">
-              {exp.period} · {exp.location}
-            </p>
-            <ul className="list-disc ml-5 text-xs">
-              {exp.projects.map((project, idx) => (
-                <li key={idx}>{project}</li>
-              ))}
-            </ul>
-          </div>
-        </ResumeSection>
+        <div key="header" className="space-y-2">
+          <h1 className="text-3xl font-bold">{personal?.name}</h1>
+          <p className="text-muted-foreground">
+            {personal?.job}· {personal?.email}
+          </p>
+        </div>
       );
-    });
 
-    const projectChunkSize = 1;
-    const projectChunks = [];
-
-    for (let i = 0; i < projects.length; i += projectChunkSize) {
-      projectChunks.push(projects.slice(i, i + projectChunkSize));
+      sections.push(
+        <div key="summary" className="flex flex-col space-y-2">
+          <h2 className="text-xl font-semibold">
+            {t("resume.summary") || "Summary"}:
+          </h2>
+          <p className="text-sm text-muted-foreground">{personal?.summary}</p>
+        </div>
+      );
     }
-
-    projectChunks.forEach((chunk, chunkIndex) => {
-      sections.push(
-        <ResumeSection
-          key={`project-chunk-${chunkIndex}`}
-          title={
-            chunkIndex === 0 ? t("projects.title") || "Projects" : undefined
-          }
-        >
-          <div className="space-y-4">
-            {chunk.map((project, i) => (
-              <div key={`project-${chunkIndex}-${i}`} className="space-y-1">
-                <p className="font-medium">{project.title}</p>
-                <p className="text-xs text-muted-foreground">
-                  {project.timeline} · {project.technologies.join(", ")}
-                </p>
-                <p className="text-sm">{project.description}</p>
-                {project.collaborators?.length > 0 && (
-                  <p className="text-xs text-muted-foreground">
-                    {t("projects.collaborators") || "Collaborators"}:{" "}
-                    {project.collaborators.join(", ")}
-                  </p>
-                )}
-                <CardFooter className="flex justify-between border-t p-3 sm:p-4">
-                  {project.liveUrl && (
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        window.open(
-                          project.liveUrl,
-                          "_blank",
-                          "noopener,noreferrer"
-                        );
-                      }}
-                      className="text-xs sm:text-sm text-muted-foreground hover:text-foreground flex items-center"
-                    >
-                      <ExternalLink className="mr-1 h-3 w-3 sm:h-4 sm:w-4" />{" "}
-                      {t("navigation.live")}
-                    </button>
-                  )}
-                  {project.githubUrl && (
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        window.open(
-                          project.githubUrl,
-                          "_blank",
-                          "noopener,noreferrer"
-                        );
-                      }}
-                      className="text-xs sm:text-sm text-muted-foreground hover:text-foreground flex items-center       "
-                    >
-                      <LuGithub className="mr-1 h-3 w-3 sm:h-4 sm:w-4" /> Code
-                    </button>
-                  )}
-                </CardFooter>
-              </div>
-            ))}
-          </div>
-        </ResumeSection>
-      );
-    });
-
-    skills.forEach((group, i) => {
-      const chunkSize = 5;
-      const skillChunks = [];
-
-      for (let j = 0; j < group.items.length; j += chunkSize) {
-        skillChunks.push(group.items.slice(j, j + chunkSize));
-      }
-
-      skillChunks.forEach((chunk, chunkIndex) => {
+    if (experiences.length > 0) {
+      experiences.forEach((exp, i) => {
         sections.push(
           <ResumeSection
-            key={`skill-${i}-${chunkIndex}`}
-            title={
-              i === 0 && chunkIndex === 0
-                ? t("skills.title") || "Skills"
-                : undefined
-            }
+            key={`exp-${i}`}
+            title={i === 0 ? t("experiences.title") || "Experience" : undefined}
           >
             <div className="space-y-1">
-              <p className="font-medium">{group.category}</p>
-              <ul className="list-disc ml-5 text-sm">
-                {chunk.map((skill, idx) => (
-                  <li key={idx}>
-                    <span className="font-medium">{skill.name}</span>{" "}
-                    <span className="text-muted-foreground">
-                      ({skill.experience})
-                    </span>
-                    <span className="text-xs block text-muted-foreground ml-1">
-                      {skill.description}
-                    </span>
-                  </li>
+              <p className="font-medium">
+                {exp.role} - {exp.company}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                {exp.period} · {exp.location}
+              </p>
+              <ul className="list-disc ml-5 text-xs">
+                {exp.projects.map((project, idx) => (
+                  <li key={idx}>{project}</li>
                 ))}
               </ul>
             </div>
           </ResumeSection>
         );
       });
-    });
+    }
+    if (projects.length > 0) {
+      const projectChunkSize = 1;
+      const projectChunks = [];
 
-    sections.push(
-      <div key="education" className="space-y-2">
-        <h2 className="text-xl font-semibold">
-          {t("resume.education") || "Education"}
-        </h2>
-        <div>
-          <p className="font-medium">B.S. in Computer Science</p>
-          <p className="text-sm text-muted-foreground">
-            University of Technology · 2015-2019
-          </p>
+      for (let i = 0; i < projects.length; i += projectChunkSize) {
+        projectChunks.push(projects.slice(i, i + projectChunkSize));
+      }
+
+      projectChunks.forEach((chunk, chunkIndex) => {
+        sections.push(
+          <ResumeSection
+            key={`project-chunk-${chunkIndex}`}
+            title={
+              chunkIndex === 0 ? t("projects.title") || "Projects" : undefined
+            }
+          >
+            <div className="space-y-4">
+              {chunk.map((project, i) => (
+                <div key={`project-${chunkIndex}-${i}`} className="space-y-1">
+                  <p className="font-medium">{project.title}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {project.timeline} · {project.technologies.join(", ")}
+                  </p>
+                  <p className="text-sm">{project.description}</p>
+                  {project.collaborators?.length > 0 && (
+                    <p className="text-xs text-muted-foreground">
+                      {t("projects.collaborators") || "Collaborators"}:{" "}
+                      {project.collaborators.join(", ")}
+                    </p>
+                  )}
+                  <CardFooter className="flex justify-between border-t p-3 sm:p-4">
+                    {project.liveUrl && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.open(
+                            project.liveUrl,
+                            "_blank",
+                            "noopener,noreferrer"
+                          );
+                        }}
+                        className="text-xs sm:text-sm text-muted-foreground hover:text-foreground flex items-center"
+                      >
+                        <ExternalLink className="mr-1 h-3 w-3 sm:h-4 sm:w-4" />{" "}
+                        {t("navigation.live")}
+                      </button>
+                    )}
+                    {project.githubUrl && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.open(
+                            project.githubUrl,
+                            "_blank",
+                            "noopener,noreferrer"
+                          );
+                        }}
+                        className="text-xs sm:text-sm text-muted-foreground hover:text-foreground flex items-center       "
+                      >
+                        <LuGithub className="mr-1 h-3 w-3 sm:h-4 sm:w-4" /> Code
+                      </button>
+                    )}
+                  </CardFooter>
+                </div>
+              ))}
+            </div>
+          </ResumeSection>
+        );
+      });
+    }
+    if (skills.length > 0) {
+      skills.forEach((group, i) => {
+        const chunkSize = 5;
+        const skillChunks = [];
+
+        for (let j = 0; j < group.items.length; j += chunkSize) {
+          skillChunks.push(group.items.slice(j, j + chunkSize));
+        }
+
+        skillChunks.forEach((chunk, chunkIndex) => {
+          sections.push(
+            <ResumeSection
+              key={`skill-${i}-${chunkIndex}`}
+              title={
+                i === 0 && chunkIndex === 0
+                  ? t("skills.title") || "Skills"
+                  : undefined
+              }
+            >
+              <div className="space-y-1">
+                <p className="font-medium">{group.category}</p>
+                <ul className="list-disc ml-5 text-sm">
+                  {chunk.map((skill, idx) => (
+                    <li key={idx}>
+                      <span className="font-medium">{skill.name}</span>{" "}
+                      <span className="text-muted-foreground">
+                        ({skill.experience})
+                      </span>
+                      <span className="text-xs block text-muted-foreground ml-1">
+                        {skill.description}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </ResumeSection>
+          );
+        });
+      });
+    }
+    if (educations.length > 0) {
+      sections.push(
+        <div key="education" className="space-y-2">
+          <h2 className="text-xl font-semibold">
+            {t("resume.education") || "Education"}
+          </h2>
+          {educations.map((edu, index) => (
+            <div key={index}>
+              <p className="font-medium">{edu.degree}</p>
+              <p className="text-sm text-muted-foreground">
+                {edu.institution} · {edu.startYear}-{edu.endYear}
+              </p>
+            </div>
+          ))}
         </div>
-      </div>
-    );
+      );
+    }
 
     setResumeSections(sections);
   }, [t, experiences, projects, skills]);
@@ -344,9 +365,8 @@ function ResumeContent({
                 ? t("resume.generating") || "Generating..."
                 : t("resume.downloadDocx") || "Download as DOCX"}
             </Button>
-
             <Button
-              onClick={handlePdfDownload}
+              onClick={handleDownloadPdf}
               className="flex items-center gap-2 flex-1"
               variant="outline"
               disabled={isGenerating}

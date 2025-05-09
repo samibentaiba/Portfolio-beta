@@ -12,6 +12,8 @@ import enProjects from "@/data/projects.json";
 import frProjects from "@/data/translations/projects-fr.json";
 import enEducations from "@/data/educations.json";
 import frEducations from "@/data/translations/educations-fr.json";
+import enPersonal from "@/data/personal.json";
+import frPersonal from "@/data/translations/personal-fr.json";
 import enFunFacts from "@/data/fun-facts.json";
 import frFunFacts from "@/data/translations/fun-facts-fr.json";
 import {
@@ -20,6 +22,7 @@ import {
   Project,
   SkillCategory,
   Education,
+  Personal,
 } from "@/types";
 
 type Language = "en" | "fr";
@@ -33,6 +36,7 @@ type LanguageContextType = {
   getExperiencesData: () => Experience[];
   getProjectsData: () => Project[];
   getEducationsData: () => Education[];
+  getPersonalData: () => Personal;
   getFunFactsData: () => FunFact[];
 };
 
@@ -89,6 +93,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const getEducationsData = (): Education[] =>
     (language === "fr" ? frEducations : enEducations) as Education[];
 
+  const getPersonalData = (): Personal =>
+    (language === "fr" ? frPersonal : enPersonal) as Personal;
+
   const getFunFactsData = (): FunFact[] =>
     (language === "fr" ? frFunFacts : enFunFacts) as FunFact[];
 
@@ -105,6 +112,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
         getExperiencesData,
         getProjectsData,
         getEducationsData,
+        getPersonalData,
         getFunFactsData,
       }}
     >

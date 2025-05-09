@@ -1,23 +1,37 @@
 import { Education, Experience, Project } from "@/types";
 import { Paragraph, TextRun, HeadingLevel } from "docx";
-
+import { Personal } from "@/types";
 // Define a type for the translate function
 type TranslateFunction = (key: string) => string;
 
-export const createSummarySection = (t: TranslateFunction) => [
+export const createSummarySection = (
+  personal: Personal | null,
+  t: TranslateFunction
+) => [
   new Paragraph({
     children: [
       new TextRun({
-        text: t("resume.summary") || "Summary:", // Fallback if translation fails
+        text: `${t("resume.summary")}` || "Summary:",
         bold: true,
         size: 26,
       }),
     ],
-    spacing: { before: 400, after: 200 },
+    spacing: { before: 100, after: 200 },
     heading: HeadingLevel.HEADING_1,
   }),
   new Paragraph({
-    children: [new TextRun({ text: t("hero.subtitle") })],
+    children: [
+      new TextRun({
+        text: `${personal?.job}` || "Summary:",
+        bold: true,
+        size: 16,
+      }),
+    ],
+    spacing: { before: 100, after: 100 },
+    heading: HeadingLevel.HEADING_1,
+  }),
+  new Paragraph({
+    children: [new TextRun({ text: personal?.summary })],
     spacing: { after: 200 },
   }),
 ];
@@ -60,7 +74,7 @@ export const createSkillsSection = (
     new Paragraph({
       children: [
         new TextRun({
-          text: t("skills.title") || "Skills:", // Fallback if translation fails
+          text: t("skills.title") || "Skills:",
           bold: true,
           size: 26,
         }),
@@ -150,7 +164,7 @@ export const createProjectsSection = (
       spacing: { before: 400, after: 200 },
       heading: HeadingLevel.HEADING_1,
     }),
-    ...projectParagraphs.flat(), // ✅ No trailing comma
+    ...projectParagraphs.flat(),
   ];
 };
 
@@ -164,7 +178,7 @@ export const createEducationSection = (
         children: [
           new TextRun({ text: `${education.degree}`, bold: true }),
           new TextRun({
-            text: ` (${education.institution}, ${education.startYear}-${education.endYear}`,
+            text: ` (${education.institution}, ${education.startYear}-${education.endYear})`,
           }),
         ],
         spacing: { before: 200 },

@@ -1,11 +1,8 @@
-{
-    "education": [
-      {
-        "degree": "Licence en Informatique",
-        "institution": "Université de Technologie",
-        "startYear": 2015,
-        "endYear": 2019
-      }
-    ]
+[
+  {
+    "degree": "Licence en Informatique",
+    "institution": "Université de Technologie",
+    "startYear": 2015,
+    "endYear": 2019
   }
-  
+]

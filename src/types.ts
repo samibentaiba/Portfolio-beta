@@ -43,15 +43,15 @@ export interface Education {
   startYear: number;
   endYear: number;
 }
-export interface Personals {
+export interface Personal {
   name: string;
-  title: string;
   email: string;
   phone: string;
   location: string;
   website: string;
   linkedin: string;
   github: string;
+  job: string;
   summary: string;
 }
 

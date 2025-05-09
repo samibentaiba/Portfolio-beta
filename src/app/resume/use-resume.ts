@@ -9,13 +9,20 @@ import {
   createProjectsSection,
   createEducationSection,
 } from "@/lib/docx-generator";
-import { formatPdfSummary, generatePdf } from "@/lib/pdf-generator";
-import { Experience, Project, SkillCategory, Education } from "@/types";
-interface SkillItem {
+
+import {
+  Experience,
+  Project,
+  SkillCategory,
+  Education,
+  Personal,
+} from "@/types";
+
+/* interface SkillItem {
   name: string;
   experience: string;
   description: string;
-}
+} */
 
 export function useResume() {
   const {
@@ -25,9 +32,10 @@ export function useResume() {
     getExperiencesData,
     getProjectsData,
     getEducationsData,
-    getPersonalsData,
+    getPersonalData,
   } = useLanguage();
-  const [personals, setPersonals] = useState<Personals | null>(null);
+
+  const [personal, setPersonal] = useState<Personal | null>(null);
   const [skills, setSkills] = useState<SkillCategory[]>([]);
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
@@ -39,31 +47,26 @@ export function useResume() {
     setExperiences(getExperiencesData());
     setProjects(getProjectsData());
     setEducations(getEducationsData());
-    setPersonals(getPerosnalsData());
+    setPersonal(getPersonalData());
   }, [
     getSkillsData,
     getExperiencesData,
     getProjectsData,
-    getPorsonalsData,
+    getEducationsData,
+    getPersonalData,
     language,
   ]);
 
-  const handleDownload = async () => {
+  const generateAndDownload = async (format: "docx" | "pdf") => {
     setIsGenerating(true);
     try {
       const skillsData = skills.map((group) => ({
         category: group.category,
-        items: group.items.map(
-          (item: {
-            name: string;
-            experience: string;
-            description: string;
-          }) => ({
-            name: item.name,
-            experience: item.experience,
-            description: item.description,
-          })
-        ),
+        items: group.items.map((item) => ({
+          name: item.name,
+          experience: item.experience,
+          description: item.description,
+        })),
       }));
 
       const doc = new Document({
@@ -73,22 +76,36 @@ export function useResume() {
             children: [
               new Paragraph({
                 children: [
-                  new TextRun({ text: "John Doe", bold: true, size: 32 }),
+                  new TextRun({
+                    text: personal?.name || "",
+                    bold: true,
+                    size: 32,
+                  }),
                 ],
                 spacing: { after: 200 },
                 heading: HeadingLevel.TITLE,
               }),
               new Paragraph({
                 children: [
-                  new TextRun({
-                    text: `${t(
-                      "hero.title"
-                    )} · johndoe@example.com · +1 (555) 123-4567`,
-                  }),
+                  new TextRun(
+                    `${personal?.email ?? ""} · ${personal?.phone ?? ""}`
+                  ),
                 ],
+                spacing: { after: 100 },
+              }),
+              new Paragraph({
+                children: [new TextRun(`${personal?.website ?? ""}`)],
+                spacing: { after: 100 },
+              }),
+              new Paragraph({
+                children: [new TextRun(`${personal?.github ?? ""}`)],
+                spacing: { after: 100 },
+              }),
+              new Paragraph({
+                children: [new TextRun(`${personal?.linkedin ?? ""}`)],
                 spacing: { after: 400 },
               }),
-              ...createSummarySection(t),
+              ...createSummarySection(personal, t),
               ...createSkillsSection(skillsData, t),
               ...createExperienceSection(experiences, t),
               ...createProjectsSection(projects, t),
@@ -99,62 +116,29 @@ export function useResume() {
       });
 
       const blob = await Packer.toBlob(doc);
-      saveAs(blob, `resume_${language}.docx`);
+
+      if (format === "docx") {
+        saveAs(blob, `resume_${language}.docx`);
+      } else {
+        const formData = new FormData();
+        formData.append("file", blob, "resume.docx");
+
+        const res = await fetch("/api/convert-to-pdf", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!res.ok) throw new Error("PDF conversion failed");
+
+        const pdfBlob = await res.blob();
+        const url = URL.createObjectURL(pdfBlob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `resume_${language}.pdf`;
+        link.click();
+      }
     } catch (error) {
-      console.error("Error generating DOCX:", error);
-    } finally {
-      setIsGenerating(false);
-    }
-  };
-
-  /*   function normalize(section: Paragraph | Paragraph[] | undefined): Paragraph[] {
-    if (!section) return [];
-    return Array.isArray(section) ? section : [section];
-  } */
-
-  const handlePdfDownload = async () => {
-    setIsGenerating(true);
-    try {
-      const pdfData = {
-        name: "John Doe",
-        title: t("hero.title"),
-        email: "johndoe@example.com",
-        summary: formatPdfSummary(t),
-        skills: skills.flatMap((group) =>
-          group.items.map((item: SkillItem) => ({
-            name: item.name,
-            experience: item.experience,
-            description: item.description,
-          }))
-        ),
-        experiences: experiences.map((experience) => ({
-          role: experience.role,
-          company: experience.company,
-          period: experience.period,
-          location: experience.location,
-          description: experience.description,
-          projects: experience.projects,
-        })),
-        projects: projects.map((project) => ({
-          title: project.title,
-          technologies: project.technologies.join(", "),
-          personalExperience: project.personalExperience,
-          liveUrl: project.liveUrl,
-          githubUrl: project.githubUrl,
-        })),
-        educations: educations.map((education) => ({
-          degree: education.degree,
-          institution: education.institution,
-          startYear: education.startYear,
-          endYear: education.endYear,
-        })),
-      };
-
-      const pdfBytes = await generatePdf(pdfData, t);
-      const blob = new Blob([pdfBytes], { type: "application/pdf" });
-      saveAs(blob, `resume_${language}.pdf`);
-    } catch (error) {
-      console.error("Error generating PDF:", error);
+      console.error(`Error generating ${format.toUpperCase()}:`, error);
     } finally {
       setIsGenerating(false);
     }
@@ -166,7 +150,9 @@ export function useResume() {
     experiences,
     projects,
     isGenerating,
-    handleDownload,
-    handlePdfDownload,
+    educations,
+    personal,
+    handleDownload: () => generateAndDownload("docx"),
+    handleDownloadPdf: () => generateAndDownload("pdf"),
   };
 }
