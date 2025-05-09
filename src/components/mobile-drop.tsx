@@ -14,7 +14,7 @@ import Link from "next/link";
 interface MenuDropProps {
   mobileMenuOpen: boolean;
   setMobileMenuOpen: (state: boolean) => void;
-  buttonRef: React.RefObject<HTMLElement>; // NEW
+  buttonRef: React.RefObject<HTMLButtonElement | null>; // ← fix here
 }
 
 export const MenuDrop: React.FC<MenuDropProps> = ({

@@ -17,7 +17,7 @@ export function Header() {
   const { t } = useLanguage();
   const { scrollToSection } = useScroll();
 
-  const buttonRef = useRef<HTMLElement>(null); // NEW
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
@@ -86,7 +86,7 @@ export function Header() {
 
           {/* Mobile menu button */}
           <Button
-            ref={buttonRef} // NEW
+            ref={buttonRef}
             variant="outline"
             className="md:hidden lg:hidden"
             size="icon"
