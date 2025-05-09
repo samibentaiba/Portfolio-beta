@@ -3,14 +3,16 @@
 import { usePathname } from "next/navigation";
 import { LanguageToggle } from "@/components/language-toggle";
 import { cn } from "@/lib/utils";
-import { Menu, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { Menu } from "lucide-react";
+import { X } from "lucide-react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/components/language-provider";
 import { ThemeToggle } from "./theme-toggle";
 import { useScroll } from "@/hooks/use-scroll";
 import Link from "next/link";
-import { LuGithub, LuLinkedin } from "react-icons/lu";
+import { LuGithub } from "react-icons/lu";
+import { LuLinkedin } from "react-icons/lu";
 import { LanguageToggleMobile } from "./language-toggle-mobile";
 import { ThemeToggleMobile } from "./theme-toggle-mobile";
 import { Separator } from "./ui/separator";
@@ -20,7 +22,6 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { t } = useLanguage();
   const { scrollToSection } = useScroll();
-  const mobileMenuRef = useRef<HTMLDivElement | null>(null);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -31,25 +32,9 @@ export function Header() {
     setMobileMenuOpen(false);
   };
 
-  // Close menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        mobileMenuOpen &&
-        mobileMenuRef.current &&
-        !mobileMenuRef.current.contains(event.target as Node)
-      ) {
-        setMobileMenuOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [mobileMenuOpen]);
-
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/80 flex flex-col items-center justify-center">
-      <div className="flex w-full max-w-[1920px] h-14 sm:h-16 md:h-18 items-center px-3 sm:px-4 md:px-6 justify-between">
+      <div className=" flex w-full max-w-[1920px] h-14  sm:h-16 md:h-18 items-center  px-3 sm:px-4 md:px-6 justify-between">
         <div className="flex items-center gap-1 sm:gap-2">
           <button
             onClick={() => handleNavClick("/")}
@@ -103,6 +88,8 @@ export function Header() {
         <div className="flex items-center gap-1 sm:gap-2">
           <ThemeToggle />
           <LanguageToggle />
+
+          {/* Mobile menu button */}
           <Button
             variant="outline"
             className="md:hidden lg:hidden"
@@ -110,21 +97,25 @@ export function Header() {
             onClick={toggleMobileMenu}
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
           >
-            {mobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            {mobileMenuOpen ? (
+              <X className="h-4 w-4" />
+            ) : (
+              <Menu className="h-4 w-4" />
+            )}
           </Button>
         </div>
       </div>
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div
-          ref={mobileMenuRef}
-          className="md:hidden flex flex-col justify-center items-center max-w-[500px] px-6"
-        >
+        <div className="md:hidden flex flex-col justify-center items-center max-w-[500px] px-6">
           <Separator className="w-screen flex justify-center items-center" />
           <nav className="container flex flex-col py-4 px-6">
             <button
-              onClick={() => handleNavClick("skills")}
+              onClick={() => {
+                scrollToSection("skills");
+                setMobileMenuOpen(false);
+              }}
               className={cn(
                 "flex py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground text-left",
                 pathname === "/#skills" && "text-foreground"
@@ -133,7 +124,10 @@ export function Header() {
               {t("navigation.skills")}
             </button>
             <button
-              onClick={() => handleNavClick("experiences")}
+              onClick={() => {
+                scrollToSection("experiences");
+                setMobileMenuOpen(false);
+              }}
               className={cn(
                 "flex py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground text-left",
                 pathname === "/#experiences" && "text-foreground"
@@ -142,7 +136,10 @@ export function Header() {
               {t("navigation.experiences")}
             </button>
             <button
-              onClick={() => handleNavClick("projects")}
+              onClick={() => {
+                scrollToSection("projects");
+                setMobileMenuOpen(false);
+              }}
               className={cn(
                 "flex py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground text-left",
                 pathname === "/#projects" && "text-foreground"
@@ -151,7 +148,10 @@ export function Header() {
               {t("navigation.projects")}
             </button>
             <button
-              onClick={() => handleNavClick("contact")}
+              onClick={() => {
+                scrollToSection("contact");
+                setMobileMenuOpen(false);
+              }}
               className={cn(
                 "flex py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground text-left",
                 pathname === "/#contact" && "text-foreground"
@@ -167,10 +167,8 @@ export function Header() {
             <LanguageToggleMobile />
             <ThemeToggleMobile />
           </div>
-
           <Separator className="w-screen flex justify-center items-center" />
-
-          <footer className="w-full flex items-center justify-center py-6 md:py-0">
+          <footer className="w-full flex items-center justify-center  py-6 md:py-0">
             <div className="container flex flex-col items-center justify-between gap-4 md:h-16 md:flex-row px-4 sm:px-6">
               <p className="text-xs sm:text-sm text-muted-foreground text-center md:text-left">
                 © {new Date().getFullYear()} Sami Bentaiba. {t("footer.rights")}
@@ -205,9 +203,9 @@ export function Header() {
 
 const BentaidevLogo = () => {
   return (
-    <div className="inline-flex items-center justify-center">
-      <div className="text-2xl font-bold tracking-wider flex items-center">
-        <span className="bg-foreground text-background rounded flex items-center justify-center h-6 w-0 mr-1 pr-[11] pl-[13]">
+    <div className=" inline-flex items-center justify-center">
+      <div className=" text-2xl font-bold tracking-wider flex items-center">
+        <span className=" bg-foreground text-background rounded flex items-center justify-center h-6 w-0 mr-1 pr-[11] pl-[13]  ">
           B
         </span>
         <span>ENTAIDEV</span>
