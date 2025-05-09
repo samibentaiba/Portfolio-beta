@@ -10,7 +10,7 @@ import {
   createEducationSection,
 } from "@/lib/docx-generator";
 import { formatPdfSummary, generatePdf } from "@/lib/pdf-generator";
-import { Experience, Project, SkillCategory } from "@/types";
+import { Experience, Project, SkillCategory, Education } from "@/types";
 interface SkillItem {
   name: string;
   experience: string;
@@ -18,19 +18,35 @@ interface SkillItem {
 }
 
 export function useResume() {
-  const { language, t, getSkillsData, getExperiencesData, getProjectsData } =
-    useLanguage();
-
+  const {
+    language,
+    t,
+    getSkillsData,
+    getExperiencesData,
+    getProjectsData,
+    getEducationsData,
+    getPersonalsData,
+  } = useLanguage();
+  const [personals, setPersonals] = useState<Personals | null>(null);
   const [skills, setSkills] = useState<SkillCategory[]>([]);
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
+  const [educations, setEducations] = useState<Education[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
 
   useEffect(() => {
     setSkills(getSkillsData());
     setExperiences(getExperiencesData());
-    setProjects(getProjectsData()); // Limiting to 2 projects for PDF
-  }, [getSkillsData, getExperiencesData, getProjectsData, language]);
+    setProjects(getProjectsData());
+    setEducations(getEducationsData());
+    setPersonals(getPerosnalsData());
+  }, [
+    getSkillsData,
+    getExperiencesData,
+    getProjectsData,
+    getPorsonalsData,
+    language,
+  ]);
 
   const handleDownload = async () => {
     setIsGenerating(true);
@@ -76,7 +92,7 @@ export function useResume() {
               ...createSkillsSection(skillsData, t),
               ...createExperienceSection(experiences, t),
               ...createProjectsSection(projects, t),
-              ...createEducationSection(),
+              ...createEducationSection(educations, t),
             ],
           },
         ],
@@ -90,6 +106,11 @@ export function useResume() {
       setIsGenerating(false);
     }
   };
+
+  /*   function normalize(section: Paragraph | Paragraph[] | undefined): Paragraph[] {
+    if (!section) return [];
+    return Array.isArray(section) ? section : [section];
+  } */
 
   const handlePdfDownload = async () => {
     setIsGenerating(true);
@@ -118,6 +139,14 @@ export function useResume() {
           title: project.title,
           technologies: project.technologies.join(", "),
           personalExperience: project.personalExperience,
+          liveUrl: project.liveUrl,
+          githubUrl: project.githubUrl,
+        })),
+        educations: educations.map((education) => ({
+          degree: education.degree,
+          institution: education.institution,
+          startYear: education.startYear,
+          endYear: education.endYear,
         })),
       };
 

@@ -4,9 +4,9 @@ import { useResume } from "./use-resume"; // Hook to fetch resume data
 import { useResumePagination } from "./use-resume-pagination";
 import { ResumeSection } from "./resume-section";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Card, CardFooter } from "@/components/ui/card";
 
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 import { ChevronLeft } from "lucide-react";
 import { ChevronRight } from "lucide-react";
 import { FileIcon } from "lucide-react";
@@ -16,6 +16,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { ReactElement } from "react";
 import { Experience, Project, SkillCategory } from "@/types";
+import { LuGithub } from "react-icons/lu";
 
 interface Props {
   t: (key: string) => string;
@@ -139,6 +140,39 @@ function ResumeContent({
                     {project.collaborators.join(", ")}
                   </p>
                 )}
+                <CardFooter className="flex justify-between border-t p-3 sm:p-4">
+                  {project.liveUrl && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(
+                          project.liveUrl,
+                          "_blank",
+                          "noopener,noreferrer"
+                        );
+                      }}
+                      className="text-xs sm:text-sm text-muted-foreground hover:text-foreground flex items-center"
+                    >
+                      <ExternalLink className="mr-1 h-3 w-3 sm:h-4 sm:w-4" />{" "}
+                      {t("navigation.live")}
+                    </button>
+                  )}
+                  {project.githubUrl && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(
+                          project.githubUrl,
+                          "_blank",
+                          "noopener,noreferrer"
+                        );
+                      }}
+                      className="text-xs sm:text-sm text-muted-foreground hover:text-foreground flex items-center       "
+                    >
+                      <LuGithub className="mr-1 h-3 w-3 sm:h-4 sm:w-4" /> Code
+                    </button>
+                  )}
+                </CardFooter>
               </div>
             ))}
           </div>
@@ -246,7 +280,6 @@ function ResumeContent({
           </Link>
         </div>
         <Card className="p-8 flex flex-col shadow-lg">
-          
           <div
             ref={containerRef}
             className="space-y-6 max-h-[750px] min-h-[600px]  overflow-hidden"

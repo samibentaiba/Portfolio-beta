@@ -148,6 +148,14 @@ export async function generatePdf(
       title: string;
       technologies: string;
       personalExperience: string;
+      liveUrl?: string;
+      githubUrl?: string;
+    }[];
+    educations: {
+      degree: string;
+      institution: string;
+      startYear: number;
+      endYear: number;
     }[];
   },
   t: (key: string) => string
@@ -303,6 +311,28 @@ export async function generatePdf(
       boldFont,
       t("navigation.experience") + ":"
     ));
+    ({ page, currentY } = wrapText(
+      page,
+      `${project.liveUrl}`,
+      UI_CONFIG.margin,
+      currentY,
+      font,
+      UI_CONFIG.fontSize,
+      UI_CONFIG.maxTextWidth,
+      pdfDoc,
+      boldFont
+    ));
+    ({ page, currentY } = wrapText(
+      page,
+      `${project.githubUrl}`,
+      UI_CONFIG.margin,
+      currentY,
+      font,
+      UI_CONFIG.fontSize,
+      UI_CONFIG.maxTextWidth,
+      pdfDoc,
+      boldFont
+    ));
     currentY -= UI_CONFIG.sectionSpacing;
   });
 
@@ -338,11 +368,28 @@ export function formatPdfExperiences(
     .join("\n");
 }
 
-export function formatPdfProjects(projects: Project[],   t: (key: string) => string) {
+export function formatPdfProjects(
+  projects: Project[],
+  t: (key: string) => string
+) {
   return projects
     .map((project) => {
       return `${t(project.title)} (${project.timeline})\n${t(
         "Tech Stack"
+      )}: ${project.technologies.map((tech) => t(tech)).join(", ")}\n${t(
+        project.personalExperience
+      )}\n`;
+    })
+    .join("\n");
+}
+export function formatPdfEducation(
+  projects: Project[],
+  t: (key: string) => string
+) {
+  return projects
+    .map((project) => {
+      return `${t(project.title)} (${project.timeline})\n${t(
+        "Education"
       )}: ${project.technologies.map((tech) => t(tech)).join(", ")}\n${t(
         project.personalExperience
       )}\n`;

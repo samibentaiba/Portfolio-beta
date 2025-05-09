@@ -53,14 +53,20 @@
     "soloProject": "Projet solo",
     "personalExperience": "Expérience Personnelle"
   },
+  "educations": {
+    "title": "Éducation",
+    "degree": "Diplôme",
+    "institution": "Établissement",
+    "startYear": "Année de début",
+    "endYear": "Année de fin"
+  },
   "resume": {
     "download": "Télécharger PDF",
     "downloadDocx": "Télécharger en .docx",
     "print": "Imprimer",
     "generating": "Génération en cours...",
     "summary": "Résumé",
-    "at": "à",
-    "education": "Formation"
+    "at": "à"
   },
   "categories": {
     "overview": "Aperçu",

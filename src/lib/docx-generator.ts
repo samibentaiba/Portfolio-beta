@@ -1,4 +1,4 @@
-import { Experience, Project } from "@/types";
+import { Education, Experience, Project } from "@/types";
 import { Paragraph, TextRun, HeadingLevel } from "docx";
 
 // Define a type for the translate function
@@ -101,7 +101,7 @@ export const createExperienceSection = (
     new Paragraph({
       children: [
         new TextRun({
-          text: t("experiences.title") || "Experience:", // Fallback if translation fails
+          text: t("experiences.title") || "Experience:",
           bold: true,
           size: 26,
         }),
@@ -116,23 +116,33 @@ export const createExperienceSection = (
 export const createProjectsSection = (
   projects: Project[],
   t: TranslateFunction
-) => {
+): Paragraph[] => {
   const projectParagraphs = projects.map((project) => {
-    return new Paragraph({
-      children: [
-        new TextRun({ text: project.title, bold: true }),
-        new TextRun({ text: ` (${project.technologies})` }),
-        new TextRun({ text: `: ${project.personalExperience}` }),
-      ],
-      spacing: { before: 200 },
-    });
+    return [
+      new Paragraph({
+        children: [
+          new TextRun({ text: `${project.title}`, bold: true }),
+          new TextRun({ text: ` (${project.technologies})` }),
+          new TextRun({ text: `: ${project.personalExperience}` }),
+        ],
+        spacing: { before: 200 },
+      }),
+      new Paragraph({
+        children: [new TextRun({ text: project.liveUrl })],
+        spacing: { before: 50, after: 50 },
+      }),
+      new Paragraph({
+        children: [new TextRun({ text: project.githubUrl })],
+        spacing: { before: 50, after: 50 },
+      }),
+    ];
   });
 
   return [
     new Paragraph({
       children: [
         new TextRun({
-          text: t("projects.title") || "Projects:", // Fallback if translation fails
+          text: t("projects.title") || "Projects:",
           bold: true,
           size: 26,
         }),
@@ -140,24 +150,40 @@ export const createProjectsSection = (
       spacing: { before: 400, after: 200 },
       heading: HeadingLevel.HEADING_1,
     }),
-    ...projectParagraphs,
+    ...projectParagraphs.flat(), // ✅ No trailing comma
   ];
 };
 
-export const createEducationSection = () => [
-  new Paragraph({
-    children: [
-      new TextRun({
-        text: "Education",
-        bold: true,
-        size: 26,
+export const createEducationSection = (
+  educations: Education[],
+  t: TranslateFunction
+): Paragraph[] => {
+  const educationParagraphs = educations.map((education) => {
+    return [
+      new Paragraph({
+        children: [
+          new TextRun({ text: `${education.degree}`, bold: true }),
+          new TextRun({
+            text: ` (${education.institution}, ${education.startYear}-${education.endYear}`,
+          }),
+        ],
+        spacing: { before: 200 },
       }),
-    ],
-    spacing: { before: 400, after: 200 },
-    heading: HeadingLevel.HEADING_1,
-  }),
-  new Paragraph({
-    children: [new TextRun({ text: "B.S. in Computer Science", bold: true })],
-  }),
-  new Paragraph("University of Technology · 2015-2019"),
-];
+    ];
+  });
+
+  return [
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: t("educations.title") || "Educations:",
+          bold: true,
+          size: 26,
+        }),
+      ],
+      spacing: { before: 400, after: 200 },
+      heading: HeadingLevel.HEADING_1,
+    }),
+    ...educationParagraphs.flat(),
+  ];
+};

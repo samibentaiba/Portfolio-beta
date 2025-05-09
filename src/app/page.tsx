@@ -6,7 +6,7 @@ import Hero from "@/components/hero";
 
 export default function Home() {
   return (
-    <main  className="flex flex-col items-center justify-center w-full px-6 ">
+    <main  className="flex flex-col items-center justify-center w-full">
       <Hero />
       <div className="w-full max-w-6xl mx-auto space-y-16 sm:space-y-24 ">
         <Skills />

@@ -37,6 +37,24 @@ export interface Project {
   personalExperience: string;
   collaborators: string[];
 }
+export interface Education {
+  degree: string;
+  institution: string;
+  startYear: number;
+  endYear: number;
+}
+export interface Personals {
+  name: string;
+  title: string;
+  email: string;
+  phone: string;
+  location: string;
+  website: string;
+  linkedin: string;
+  github: string;
+  summary: string;
+}
+
 export interface FunFact {
   category: string;
   text: string;
