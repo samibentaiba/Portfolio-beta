@@ -156,7 +156,7 @@ function ResumeContent({
                       {project.collaborators.join(", ")}
                     </p>
                   )}
-                  <CardFooter className="flex justify-between border-t p-3 sm:p-4">
+                  <CardFooter className="flex justify-between p-3 sm:p-4">
                     {project.liveUrl && (
                       <button
                         onClick={(e) => {
